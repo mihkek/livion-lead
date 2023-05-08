@@ -43,7 +43,7 @@
         </div>
       </div>
 
-      <q-form class="full-width reg_form">
+      <q-form @submit.prevent="sendData" class="full-width reg_form">
         <q-input
           class="form_input"
           outlined
@@ -121,6 +121,8 @@
 </template>
 
 <script>
+import authApi from "src/api/auth";
+
 import { defineComponent } from "vue";
 /* eslint-disable */
 export default defineComponent({
@@ -174,28 +176,28 @@ export default defineComponent({
     calcOrderData() {
       switch (this.$route.query.type) {
         case "1":
-          this.order_type = "1_М";
+          this.order_type = "1_M";
           this.order_price = 1;
           this.order_price_label = "1";
           this.order_label = "1 месяц";
           this.weekly_price = "11";
           break;
         case "3":
-          this.order_type = "3_М";
+          this.order_type = "3_M";
           this.order_price = 2;
           this.order_price_label = "2";
           this.order_label = "3 месяца";
           this.weekly_price = "11";
           break;
         case "12":
-          this.order_type = "12_М";
+          this.order_type = "12_M";
           this.order_price = 3;
           this.order_price_label = "3";
           this.order_label = "12 месяцев";
           this.weekly_price = "11";
           break;
         default:
-          this.order_type = "12_М";
+          this.order_type = "12_M";
           this.order_price = 3;
           this.order_price_label = "3";
           this.order_label = "12 месяцев";
@@ -210,6 +212,29 @@ export default defineComponent({
       } else {
         return false;
       }
+    },
+    sendData() {
+      this.$q.loading.show({
+        message: `Минуту, делаем всё необходимое....<br>`,
+        html: true,
+      });
+      authApi
+        .register(this.email, this.order_type, this.name, this.phone)
+        .then((res) => {
+          this.$q.loading.hide();
+          location.href = res.data.payment.link;
+        })
+        .catch((err) => {
+          this.$q.loading.hide();
+          console.log("Error - ", err);
+          this.$q.dialog({
+            dark: false,
+            color: "red",
+            title: "Ошибка",
+            message:
+              "Произошла непредвиденная ошибка. Повторите попытку позднее",
+          });
+        });
     },
   },
 });
