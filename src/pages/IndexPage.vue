@@ -2,16 +2,16 @@
   <q-page class="flex flex-center main_wrapper">
     <q-card class="main_card rounded">
       <h6 class="text-h6 q-pa-none q-ma-none">Ваш тариф</h6>
-      <h1 class="q-mb-md">Доступ на 3 месяца (все ключено)</h1>
+      <h1 class="q-mb-md">Доступ на {{ order_label }} (все ключено)</h1>
       <div class="price_card">
         <div class="price_card_head">
           <p class="q-ma-none q-pa-none">ваша скидка 40%</p>
         </div>
         <div class="price_card_content q-pa-sm">
-          <div class="price_card_discount">8900₽</div>
+          <div class="price_card_discount">{{ getDiscountPrice }}₽</div>
           <div class="price_card_item">
-            <h5>5 350₽</h5>
-            <p>(445₽ / неделя)</p>
+            <h5>{{ order_price_label }}₽</h5>
+            <p>({{ weekly_price }} / неделя)</p>
           </div>
         </div>
       </div>
@@ -20,7 +20,7 @@
       <div class="main_card_footer sm_hide">
         <div class="footer_label">
           <p class="q-pa-none q-ma-none">начало занятий:</p>
-          <span class="q-pa-none q-ma-none">04 мая 2023</span>
+          <span class="q-pa-none q-ma-none">{{ getCurrentDate }}</span>
         </div>
         <div class="footer_label">
           <p class="q-pa-none q-ma-none">как войти:</p>
@@ -80,8 +80,13 @@
       </q-form>
       <p class="form_footer">
         Нажимая на кнопку, я соглашаюсь на
-        <a href="#">обработку персональных данных</a> и
-        <a href="#">с правилами пользования платформой</a>
+        <a target="_blank" href="https://livionclass.ru/privacy_policy"
+          >обработку персональных данных</a
+        >
+        и
+        <a target="_blank" href="https://livionclass.ru/oferta"
+          >с правилами пользования платформой</a
+        >
       </p>
 
       <div
@@ -103,7 +108,7 @@
       <div class="main_card_footer sm_show">
         <div class="footer_label">
           <p class="q-pa-none q-ma-none">начало занятий:</p>
-          <span class="q-pa-none q-ma-none">04 мая 2023</span>
+          <span class="q-pa-none q-ma-none">{{ getCurrentDate }}3</span>
         </div>
         <div class="footer_label">
           <p class="q-pa-none q-ma-none">как войти:</p>
@@ -117,7 +122,7 @@
 
 <script>
 import { defineComponent } from "vue";
-
+/* eslint-disable */
 export default defineComponent({
   name: "IndexPage",
   data() {
@@ -125,9 +130,79 @@ export default defineComponent({
       name: "",
       email: "",
       phone: "",
+      order_type: "1_M",
+      order_label: "1 месяц",
+      order_price: 1,
+      order_price_label: "1",
+      weekly_price: 1,
     };
   },
+  mounted() {
+    console.log(this.$route.query.type);
+    this.calcOrderData();
+  },
+  computed: {
+    getDiscountPrice() {
+      return (this.order_price *= 1.4);
+    },
+    getCurrentDate() {
+      var months = [
+        "января",
+        "февраля",
+        "марта",
+        "апреля",
+        "мая",
+        "июня",
+        "июля",
+        "августа",
+        "сентября",
+        "октября",
+        "ноября",
+        "декабря",
+      ];
+
+      var date = new Date(); // создаем объект даты с текущим временем
+      var day = date.getDate().toString().padStart(2, "0"); // получаем день и добавляем ведущий ноль, если число меньше 10
+      var month = months[date.getMonth()]; // получаем месяц в текстовом формате из массива months
+      var year = date.getFullYear(); // получаем год
+
+      var formattedDate = `${day} ${month} ${year}`;
+      return formattedDate;
+    },
+  },
   methods: {
+    calcOrderData() {
+      switch (this.$route.query.type) {
+        case "1":
+          this.order_type = "1_М";
+          this.order_price = 1;
+          this.order_price_label = "1";
+          this.order_label = "1 месяц";
+          this.weekly_price = "11";
+          break;
+        case "3":
+          this.order_type = "3_М";
+          this.order_price = 2;
+          this.order_price_label = "2";
+          this.order_label = "3 месяца";
+          this.weekly_price = "11";
+          break;
+        case "12":
+          this.order_type = "12_М";
+          this.order_price = 3;
+          this.order_price_label = "3";
+          this.order_label = "12 месяцев";
+          this.weekly_price = "11";
+          break;
+        default:
+          this.order_type = "12_М";
+          this.order_price = 3;
+          this.order_price_label = "3";
+          this.order_label = "12 месяцев";
+          this.weekly_price = "11";
+          break;
+      }
+    },
     isValidEmail(email) {
       const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (regex.test(email)) {
