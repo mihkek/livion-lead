@@ -11,12 +11,22 @@
           <div class="price_card_discount">{{ getDiscountPrice }}₽</div>
           <div class="price_card_item">
             <h5>{{ order_price_label }}₽</h5>
-            <p>({{ weekly_price }} / неделя)</p>
+            <p>({{ weekly_price }} ₽ / неделя)</p>
           </div>
         </div>
       </div>
 
-      <img class="payments_img sm_hide" src="payments.png" alt="" />
+      <div class="payments_img sm_hide">
+        <img class="payments_img_item" src="mir.png" alt="" />
+        <img class="payments_img_item" src="visa.png" alt="" />
+        <img class="payments_img_item" src="qiwi.png" alt="" />
+        <img
+          class="payments_img_item"
+          src="mc.png"
+          style="height: 26px"
+          alt=""
+        />
+      </div>
       <div class="main_card_footer sm_hide">
         <div class="footer_label">
           <p class="q-pa-none q-ma-none">начало занятий:</p>
@@ -76,7 +86,12 @@
           hint="Телефон в виде: 8-###-###-##-##"
         />
 
-        <q-btn type="submit" label="Оплатить" class="form_btn q-mt-sm" />
+        <q-btn
+          type="submit"
+          no-caps
+          label="Оплатить"
+          class="form_btn q-mt-sm"
+        />
       </q-form>
       <p class="form_footer">
         Нажимая на кнопку, я соглашаюсь на
@@ -91,7 +106,7 @@
 
       <div
         class="steps_wrapper sm_show"
-        style="margin-top: 65px; margin-bottom: 30px"
+        style="margin-top: 60px; margin-bottom: 30px"
       >
         <div class="steps_item active">
           <div class="steps_number">1</div>
@@ -115,7 +130,17 @@
           <span class="q-pa-none q-ma-none">на почту придет доступ</span>
         </div>
       </div>
-      <img class="payments_img sm_show" src="payments.png" alt="" />
+      <div class="payments_img sm_show">
+        <img class="payments_img_item" src="mir.png" alt="" />
+        <img class="payments_img_item" src="visa.png" alt="" />
+        <img class="payments_img_item" src="qiwi.png" alt="" />
+        <img
+          class="payments_img_item"
+          src="mc.png"
+          style="height: 20px"
+          alt=""
+        />
+      </div>
     </q-card>
   </q-page>
 </template>

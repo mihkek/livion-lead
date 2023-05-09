@@ -1,6 +1,8 @@
 /* app global css */
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
 body {
-  font-family: "Montserrat";
+  font-family: "Montserrat", sans-serif;
 }
 .main_wrapper {
   background: linear-gradient(167.96deg, #f05db1 0%, #ca5df0 100%);
@@ -30,10 +32,11 @@ body {
 
 .main_card {
   width: 630px;
-  height: 604px;
+  height: 695px;
   border-radius: 30px;
   padding: 34px 42px;
   background: #efefef;
+  color: #192126;
 }
 @media (max-width: 600px) {
   .main_card {
@@ -78,6 +81,7 @@ body {
   background: #ffffff;
   border-radius: 15px !important;
   width: 100%;
+  margin-top: 40px;
 }
 
 .price_card_head {
@@ -174,18 +178,43 @@ body {
 }
 
 .payments_img {
-  margin-top: 20px;
+  margin-top: 80px;
   width: 80%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 15px !important;
+  padding: 19px 15px;
+  background: white;
+}
+.payments_img_item {
   object-fit: cover;
-  border: none;
-  border-radius: unset;
+  max-width: 65px;
+  /* max-height: 19px; */
+  width: auto;
+  height: auto;
+}
+@media (max-width: 600px) {
+  .payments_img {
+    margin-top: 20px;
+    width: 100%;
+  }
+  .payments_img_item {
+    max-width: 48px;
+    /* height: 14px; */
+  }
 }
 
 .main_card_footer {
   display: flex;
   width: 100%;
   justify-content: space-between;
-  margin-top: 5%;
+  margin-top: 8%;
+}
+@media (max-width: 600px) {
+  .main_card_footer {
+    margin-top: 5%;
+  }
 }
 
 .footer_label {
@@ -204,7 +233,7 @@ body {
   text-align: left;
 }
 .footer_label span {
-  font-weight: 600;
+  font-weight: 400;
 }
 @media (max-width: 600px) {
   .footer_label p,
@@ -215,13 +244,19 @@ body {
     letter-spacing: 0em;
   }
   .footer_label span {
-    font-weight: 600;
+    font-weight: 400;
   }
 }
 
 .steps_wrapper {
   display: flex;
   justify-content: space-between;
+  margin-top: 2.5%;
+}
+@media (max-width: 600px) {
+  .steps_wrapper {
+    margin-top: unset;
+  }
 }
 .steps_item {
   margin-top: 5%;
@@ -287,19 +322,32 @@ body {
   gap: 5px;
   margin-top: 10%;
 }
-
+.form_input {
+  color: #192126 !important;
+}
+.form_input > * {
+  color: #192126 !important;
+}
+.q-field__native {
+  color: #192126 !important;
+}
+.q-field__label {
+  color: #192126 !important;
+}
 .q-field__control {
   border: 1.5px solid #efefef !important;
   border-radius: 12px !important;
 }
 .form_btn {
+  font-family: "Manrope";
   background: #d75ddb;
   border-radius: 12px;
   font-family: "Manrope";
   font-style: normal;
-  font-weight: 700;
+  font-weight: 600;
   font-size: 18px;
   line-height: 140%;
+  margin-top: 25px;
 
   /* or 34px */
   display: flex;
@@ -310,18 +358,31 @@ body {
 }
 
 .form_footer {
-  font-size: 16px;
-  font-weight: 200;
-  line-height: 20px;
-  letter-spacing: 0em;
-  text-align: center;
-  color: #555252;
-  margin-top: 30px;
+  margin: 0;
+  margin-top: 6%;
   margin-bottom: 20px;
 }
-
+.form_footer,
 .form_footer a {
-  color: inherit;
+  font-family: "Montserrat", sans-serif;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 20px;
+  text-align: center;
+  color: #555252;
+}
+.form_footer a {
   text-decoration: underline;
   display: inline;
+}
+
+@media (max-width: 600px) {
+  .form_footer {
+    margin-top: 30px;
+  }
+  .form_footer,
+  .form_footer a {
+    font-weight: 200;
+  }
 }
