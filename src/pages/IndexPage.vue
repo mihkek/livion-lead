@@ -247,7 +247,21 @@ export default defineComponent({
         .register(this.email, this.order_type, this.name, this.phone)
         .then((res) => {
           this.$q.loading.hide();
-          location.href = res.data.payment.link;
+          if (res.data.exists) {
+            this.$q
+              .dialog({
+                dark: false,
+                color: "red",
+                title: "Ошибка",
+                message:
+                  "Такой пользователь уже существует. Попробуйте войти в ваш личный кабинет",
+              })
+              .onOk(() => {
+                location.href = "https://livionapp.ru/#/sign_in";
+              });
+          } else {
+            location.href = res.data.payment.link;
+          }
         })
         .catch((err) => {
           this.$q.loading.hide();
