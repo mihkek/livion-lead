@@ -243,8 +243,12 @@ export default defineComponent({
         message: `Минуту, делаем всё необходимое....<br>`,
         html: true,
       });
+      let refCode = null;
+      if (this.$route.query.ref) {
+        refCode = this.$route.query.ref;
+      }
       authApi
-        .register(this.email, this.order_type, this.name, this.phone)
+        .register(this.email, this.order_type, this.name, this.phone, refCode)
         .then((res) => {
           this.$q.loading.hide();
           if (res.data.exists) {
@@ -259,13 +263,20 @@ export default defineComponent({
               .onOk(() => {
                 location.href = "https://livionapp.ru/#/sign_in";
               });
+          } else if (res.data.invalid_email) {
+            this.$q.dialog({
+              dark: false,
+              color: "red",
+              title: "Ошибка",
+              message:
+                "Мы не смогли отправить вам письмо, укажите другую почту",
+            });
           } else {
             location.href = res.data.payment.link;
           }
         })
         .catch((err) => {
           this.$q.loading.hide();
-          console.log("Error - ", err);
           this.$q.dialog({
             dark: false,
             color: "red",
