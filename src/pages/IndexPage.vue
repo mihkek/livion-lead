@@ -230,6 +230,24 @@ export default defineComponent({
           break;
       }
     },
+    reachMetrikaGoal() {
+      switch (this.order_type) {
+        case "1_M":
+          this.$metrika.reachGoal("click_livion_main1");
+          console.log("click_livion_main1");
+          break;
+        case "3_M":
+          this.$metrika.reachGoal("click_livion_main3");
+          console.log("click_livion_main3");
+          break;
+        case "12_M":
+          this.$metrika.reachGoal("click_livion_main12");
+          console.log("click_livion_main12");
+          break;
+        default:
+          throw new Error("Invalid order type");
+      }
+    },
     isValidEmail(email) {
       const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (regex.test(email)) {
@@ -239,6 +257,7 @@ export default defineComponent({
       }
     },
     sendData() {
+      this.reachMetrikaGoal();
       this.$q.loading.show({
         message: `Минуту, делаем всё необходимое....<br>`,
         html: true,
