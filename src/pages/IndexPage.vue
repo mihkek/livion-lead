@@ -234,15 +234,15 @@ export default defineComponent({
       switch (this.order_type) {
         case "1_M":
           this.$metrika.reachGoal("click_livion_main1");
-          console.log("click_livion_main1");
+          console.log("order_month1");
           break;
         case "3_M":
           this.$metrika.reachGoal("click_livion_main3");
-          console.log("click_livion_main3");
+          console.log("order_month3");
           break;
         case "12_M":
           this.$metrika.reachGoal("click_livion_main12");
-          console.log("click_livion_main12");
+          console.log("order_month12");
           break;
         default:
           throw new Error("Invalid order type");
